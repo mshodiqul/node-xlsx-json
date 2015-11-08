@@ -1,6 +1,9 @@
 var fs = require('fs');
 var xlsx = require('xlsx');
 var cvcsv = require('csv');
+var excel = require('excel-stream');
+var fs = require('fs');
+var stream = require ('stream');
 
 exports = module.exports = XLSX_json;
 
