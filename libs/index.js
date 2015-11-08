@@ -10,8 +10,24 @@ function XLSX_json (config, callback) {
     process.exit(1);
   }
 
-  var cv = new CV(config, callback);
-
+  var readable = true;
+  var extention = config.input.toLowerCase().substring(config.input.length, config.input.length - 5);
+  if (extention == '.xlsx') {
+    fs.createReadStream(config.input)
+      .pipe(excel())
+      .on('error', function(error) {
+        callback(error, null);
+        readable = false;
+      })
+      .on('end', function() {
+        if (readable == true) {
+          var cv = new CV(config, callback);
+        }
+      });
+  }
+  else {
+    callback("File Not Valid", null);
+  }
 }
 
 function CV(config, callback) {
