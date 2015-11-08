@@ -13,13 +13,16 @@ function XLSX_json (config, callback) {
     process.exit(1);
   }
 
-  var readable = true;
+  var readable = false;
   var extention = config.input.toLowerCase().substring(config.input.length, config.input.length - 5);
   if (extention == '.xlsx') {
     fs.createReadStream(config.input)
       .pipe(excel())
       .on('error', function(error) {
+        readable = false;
         callback(error, null);
+      })
+      .on('data', function(data) {
         readable = false;
       })
       .on('end', function() {
