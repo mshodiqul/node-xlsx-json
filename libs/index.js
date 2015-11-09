@@ -23,7 +23,7 @@ function XLSX_json (config, callback) {
         callback(error, null);
       })
       .on('data', function(data) {
-        readable = false;
+        readable = true;
       })
       .on('end', function() {
         if (readable == true) {
